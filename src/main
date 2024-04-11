@@ -1,0 +1,46 @@
+import pygame
+import random
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the display
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Texas Hold'em Game")
+
+# Colors
+WHITE = (255, 255, 255)
+
+# Game setup
+player_hand = []
+community_cards = []
+
+# Game loop
+running = True
+while running:
+    screen.fill(WHITE)
+
+    # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            # Example: Deal cards when the mouse button is clicked
+            player_hand.append(random.choice(['Ace', 'King', 'Queen', 'Jack', '10']))
+            community_cards.append(random.choice(['Ace', 'King', 'Queen', 'Jack', '10']))
+
+    # Render player hand
+    player_text = ', '.join(player_hand)
+    font = pygame.font.Font(None, 36)
+    text = font.render(f"Your hand: {player_text}", True, (0, 0, 0))
+    screen.blit(text, (10, 10))
+
+    # Render community cards
+    community_text = ', '.join(community_cards)
+    text = font.render(f"Community cards: {community_text}", True, (0, 0, 0))
+    screen.blit(text, (10, 50))
+
+    pygame.display.flip()
+
+pygame.quit()
