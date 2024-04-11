@@ -1,0 +1,44 @@
+import random
+
+# Define card ranks, suits, and values
+RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+VALUES = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+
+class Deck:
+    def __init__(self):
+        self.cards = self.create_deck()
+
+    def create_deck(self):
+        return [(rank, suit) for rank in RANKS for suit in SUITS]
+
+    def shuffle(self):
+        random.shuffle(self.cards)
+
+    def deal_card(self):
+        if len(self.cards) < 10:  # Adjust the threshold as needed
+            print("New Deck Entered")
+            self.cards = self.create_deck()
+            self.shuffle()
+        return self.cards.pop()
+
+def deal_hand(deck, num_cards):
+    return [deck.deal_card() for _ in range(num_cards)]
+
+def display_hand(hand):
+    return ', '.join([f"{rank} of {suit}" for rank, suit in hand])
+
+def play_texas_holdem():
+    deck = Deck()
+    deck.shuffle()
+
+    player_hand = deal_hand(deck, 2)
+    print("Your hand:", display_hand(player_hand))
+
+    community_cards = deal_hand(deck, 5)
+    print("Community cards:", display_hand(community_cards))
+
+    # Implement the rest of the game logic...
+
+if __name__ == "__main__":
+    play_texas_holdem()
