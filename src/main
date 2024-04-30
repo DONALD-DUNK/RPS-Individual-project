@@ -9,21 +9,28 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Texas Hold'em Game")
 
-# Load start screen image
+# Load start screen and button image
 start_screen = pygame.image.load('../Photos/pokerTable-1.png (1).png')
 start_screen = pygame.transform.scale(start_screen, (WIDTH, HEIGHT))
+button_image = pygame.image.load('../Photos/New Piskel-1.png (1).png')
+button_image = pygame.transform.scale(button_image, (100, 100))
+
+# Position for the button image
+button_rect = button_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
 # Start screen loop
 start = False
 while not start:
     screen.blit(start_screen, (0, 0))
+    screen.blit(button_image, button_rect)
     pygame.display.flip()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            start = True
+            if button_rect.collidepoint(event.pos):
+                start = True
 
 # Colors
 WHITE = (255, 255, 255)
